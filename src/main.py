@@ -1,7 +1,11 @@
+# sys imports
+
 import os
 import sys 
 sys.path.append("../config")
 sys.path.append("../request")
+
+# imports
 
 from functools import lru_cache
 import openai
@@ -10,6 +14,8 @@ from config import Settings
 from request.body_request import TextPrompt
 
 app = FastAPI()
+
+# cache so the settings don't reload every new request
 
 @lru_cache()
 def get_settings():
@@ -34,3 +40,4 @@ async def generate_prompt(userInput : TextPrompt):
     
 
 
+# yey that was a very complex program
