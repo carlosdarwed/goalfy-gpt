@@ -9,6 +9,7 @@ sys.path.append("../request")
 
 from functools import lru_cache
 import openai
+import json
 from fastapi import FastAPI
 from config import Settings
 from request.body_request import TextPrompt
@@ -36,7 +37,7 @@ async def generate_prompt(userInput : TextPrompt):
         temperature=0
     )
     result = (resp.choices[0].text).replace("\n", '').replace("/", '')
-    return result
+    return json.loads(result)
     
 
 
