@@ -1,0 +1,36 @@
+import os
+import sys 
+sys.path.append("../config")
+sys.path.append("../request")
+
+from functools import lru_cache
+import openai
+from fastapi import FastAPI
+from config import Settings
+from request.body_request import TextPrompt
+
+app = FastAPI()
+
+@lru_cache()
+def get_settings():
+    return Settings()
+
+@app.get("/")
+async def status():
+    return  {"status" : "all good !"}
+
+@app.post("/generate_prompt")
+async def generate_prompt(userInput : TextPrompt):
+    openai.organization = "org-fbZKeNIBMA7bM7bNIj96xYk7"
+    openai.api_key = get_settings().open_api
+    resp = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=userInput.prompt,
+        max_tokens=500,
+        temperature=0
+    )
+    result = (resp.choices[0].text).replace("\n", '').replace("/", '')
+    return result
+    
+
+
