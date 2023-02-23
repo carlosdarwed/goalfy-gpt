@@ -12,7 +12,7 @@ from functools import lru_cache
 import openai
 import json
 from fastapi import FastAPI
-from config import Settings
+from app_config.config import Settings
 from request.body_request import TextPrompt
 
 app = FastAPI()
