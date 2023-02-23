@@ -13,11 +13,15 @@ import openai
 import json
 from fastapi import FastAPI
 from app_config.config import Settings
-from prompt_request.body_request import TextPrompt
+from pydantic import BaseModel
 
 app = FastAPI()
 
 # cache so the settings don't reload every new request
+
+
+class TextPrompt(BaseModel):
+    prompt : str
 
 @lru_cache()
 def get_settings():
