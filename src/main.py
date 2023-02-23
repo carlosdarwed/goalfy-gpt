@@ -4,7 +4,7 @@ import os
 import sys 
 sys.path.append("../.")
 sys.path.append("../config")
-sys.path.append("./request")
+sys.path.append("./prompt_request")
 
 # imports
 
@@ -13,7 +13,7 @@ import openai
 import json
 from fastapi import FastAPI
 from app_config.config import Settings
-from request.body_request import TextPrompt
+from prompt_request.body_request import TextPrompt
 
 app = FastAPI()
 
