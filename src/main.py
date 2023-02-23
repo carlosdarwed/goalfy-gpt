@@ -4,6 +4,7 @@ import os
 import sys 
 sys.path.append("../config")
 sys.path.append("../request")
+sys.path.append("../.")
 
 # imports
 
