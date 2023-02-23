@@ -4,7 +4,7 @@ import os
 import sys 
 sys.path.append("../.")
 sys.path.append("../config")
-sys.path.append("../prompt_request")
+sys.path.append(".")
 
 # imports
 
