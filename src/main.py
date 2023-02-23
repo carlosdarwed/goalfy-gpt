@@ -3,8 +3,8 @@
 import os
 import sys 
 sys.path.append("../.")
-sys.path.append("../config/.")
-sys.path.append("../request/.")
+sys.path.append("../config")
+sys.path.append("../request")
 
 # imports
 
@@ -40,6 +40,4 @@ async def generate_prompt(userInput : TextPrompt):
     result = (resp.choices[0].text).replace("\n", '').replace("/", '')
     return json.loads(result)
     
-
-
 # yey that was a very complex program
