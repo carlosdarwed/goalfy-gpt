@@ -1,5 +1,4 @@
 # sys imports
-
 import os
 import sys 
 sys.path.append("../.")
@@ -7,7 +6,6 @@ sys.path.append("../config")
 sys.path.append(".")
 
 # imports
-
 from functools import lru_cache
 import openai
 import json
@@ -18,12 +16,10 @@ from pydantic import BaseModel
 app = FastAPI()
 
 # request model declaration
-
 class TextPrompt(BaseModel):
     prompt : str
 
 # cache so the settings don't reload every new request
-
 @lru_cache()
 def get_settings():
     return Settings()
@@ -34,6 +30,10 @@ async def status():
 
 @app.post("/generate_prompt")
 async def generate_prompt(userInput : TextPrompt):
+
+    ''' The "generate_prompt" route takes the user_input and
+    sends it to the open-ai api, once done, it formats a json and return.'''
+
     openai.organization = get_settings().app_org
     openai.api_key = get_settings().open_api
     resp = openai.Completion.create(
@@ -44,5 +44,3 @@ async def generate_prompt(userInput : TextPrompt):
     )
     result = (resp.choices[0].text).replace("\n", '').replace("/", '')
     return json.loads(result)
-    
-# yey that was a very complex program
