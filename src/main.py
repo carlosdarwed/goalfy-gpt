@@ -17,11 +17,12 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-# cache so the settings don't reload every new request
-
+# request model declaration
 
 class TextPrompt(BaseModel):
     prompt : str
+
+# cache so the settings don't reload every new request
 
 @lru_cache()
 def get_settings():
@@ -33,7 +34,7 @@ async def status():
 
 @app.post("/generate_prompt")
 async def generate_prompt(userInput : TextPrompt):
-    openai.organization = "org-fbZKeNIBMA7bM7bNIj96xYk7"
+    openai.organization = get_settings().app_org
     openai.api_key = get_settings().open_api
     resp = openai.Completion.create(
         model="text-davinci-003",
