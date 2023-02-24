@@ -9,7 +9,7 @@ sys.path.append(".")
 from functools import lru_cache
 import openai
 import json
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, status
 from app_config.config import Settings
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -54,4 +54,12 @@ async def generate_prompt(userInput : TextPrompt):
         temperature=0
     )
     result = (resp.choices[0].text).replace("\n", '').replace("/", '')
-    return json.loads(result)
+    try:
+        return json.loads(result) 
+    except:
+        raise HTTPException(
+        status_code=400,
+        detail=f'[err-api]: the current prompt is not a valid JSON object')
+
+        
+    
