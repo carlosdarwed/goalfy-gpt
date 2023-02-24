@@ -5,9 +5,9 @@ sys.path.append("../.env")
 from pydantic import BaseSettings
 from dotenv import load_dotenv
 
-load_dotenv("../.env")
+load_dotenv()
 
 class Settings(BaseSettings):
-    app_org : str = "org-fbZKeNIBMA7bM7bNIj96xYk7"
-    open_api : str = "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"
+    app_org : str = os.getenv("ORG_KEY")
+    open_api : str = os.getenv("OPENAI_KEY")
 
