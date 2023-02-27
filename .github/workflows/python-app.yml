@@ -16,6 +16,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env: 
+      OPENAI_KEY=${{secrets.OPENAI_KEY}}
+      APP_ORG=${{secrets.ORG_KEY}}
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python 3.11
@@ -42,12 +46,5 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/karl-gpt:prod-V4.1
+      - name: Build and push to docker
+          run: docker -e "ORG_KEY=${{secrets.ORG_KEY}}" -e "OPENAI_KEY=${{secrets.OPENAI_KEY}}" build -t karlossolrak/karl-gpt:test-V1 .
