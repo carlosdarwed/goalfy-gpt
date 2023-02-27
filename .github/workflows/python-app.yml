@@ -50,4 +50,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/karl-gpt:prod-V4
+          tags: ${{ secrets.DOCKER_USERNAME }}/karl-gpt:prod-V4.1
