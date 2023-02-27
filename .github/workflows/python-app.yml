@@ -43,7 +43,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push to docker
-        run: docker build --build-arg ORG_KEY=${{secrets.ORG_KEY}} --build-arg ENV OPENAI_KEY=${{secrets.OPENAI_KEY}} karlossolrak/karl-gpt:test-V1 .
+        run: docker build --build-arg ORG_KEY=${{secrets.ORG_KEY}} --build-arg ENV OPENAI_KEY=${{secrets.OPENAI_KEY}} -t karlossolrak/karl-gpt:test-V1 .
 
       - name: Tag docker image
         run: docker push karlossolrak/karl-gpt:test-V1
