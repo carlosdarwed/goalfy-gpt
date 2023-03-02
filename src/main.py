@@ -47,13 +47,12 @@ async def generate_prompt(userInput : TextPrompt):
 
     openai.organization = get_settings().app_org
     openai.api_key = get_settings().open_api
-    resp = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=userInput.prompt,
-        max_tokens=500,
+    resp = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role" : "user", "content" : userInput.prompt}],
         temperature=0
     )
-    result = (resp.choices[0].text).replace("\n", '').replace("/", '')
+    result = (resp.choices[0].message.content).replace("\n", '').replace("/", '')
     try:
         return json.loads(result) 
     except:
